@@ -55,7 +55,7 @@ public class Runner {
         protected Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
             // do not load carbon classes so we can still load the plugin from a plugin-specific class loader
             if (name.startsWith("com.lastabyss.carbon")) { throw new ClassNotFoundException(name); }
-            
+
             synchronized (getClassLoadingLock(name)) {
                 // First, check if the class has already been loaded
                 Class<?> c = findLoadedClass(name);
