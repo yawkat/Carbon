@@ -2,7 +2,6 @@ package com.lastabyss.carbon;
 
 import com.lastabyss.carbon.generator.CarbonEntityGenerator;
 import com.lastabyss.carbon.generator.CarbonWorldGenerator;
-import com.lastabyss.carbon.instrumentation.Instrumentator;
 import com.lastabyss.carbon.listeners.BlockListener;
 import com.lastabyss.carbon.listeners.CommandListener;
 import com.lastabyss.carbon.listeners.EntityListener;
@@ -53,8 +52,7 @@ public class Carbon extends JavaPlugin {
   public static final Logger log = Bukkit.getLogger();
 
   private static Injector injector;
-  private static Instrumentator instrumentator;
-  
+
   private final double localConfigVersion = 0.9;
   private final String supportedVersion = "1.7.10"; //Wanna use reflection and change this value? I dare you...
 
@@ -78,20 +76,9 @@ public class Carbon extends JavaPlugin {
       return;
     }
     
-    
-    saveResource("libraries/natives/32/linux/libattach.so", true);
-    saveResource("libraries/natives/32/solaris/libattach.so", true);
-    saveResource("libraries/natives/32/windows/attach.dll", true);
-    saveResource("libraries/natives/64/linux/libattach.so", true);
-    saveResource("libraries/natives/64/mac/libattach.dylib", true);
-    saveResource("libraries/natives/64/solaris/libattach.so", true);
-    saveResource("libraries/natives/64/windows/attach.dll", true);
-    
     //Inject 1.8 features. Stop server if something fails
     try {
       Utilities.instantiate(this);
-      instrumentator = new Instrumentator(this, new File(getDataFolder(), "libraries/natives/").getPath());
-      instrumentator.instrumentate();
       injector = new Injector(this);
       injector.registerAll();
       injector.registerRecipes();
