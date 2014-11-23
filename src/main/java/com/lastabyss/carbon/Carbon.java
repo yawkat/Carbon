@@ -36,6 +36,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Carbon extends JavaPlugin {
 
+    static { System.out.println("CL " + Carbon.class.getClassLoader()); }
+
   private BlockListener blockListener = new BlockListener();
   private CommandListener commandListener = new CommandListener();
   private ItemListener itemListener = new ItemListener(this);

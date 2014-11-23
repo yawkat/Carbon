@@ -155,5 +155,11 @@ public class Runner {
                 throw (ClassNotFoundException) pae.getException();
             }
         }
+
+        @Override
+        public URL getResource(String name) {
+            if (name.equals("config.yml") || name.equals("plugin.yml")) { return null; }
+            return super.getResource(name);
+        }
     }
 }
